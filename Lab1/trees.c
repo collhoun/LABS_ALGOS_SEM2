@@ -42,16 +42,18 @@ List *init_list()
         exit(1);
     }
     list->head = NULL;
+    list->tail = NULL;
     list->len = 0;
     return list;
 }
 
 void push_front(List *list, Node *node)
 {
-    // добавление элемента в список на месте
+    // добавление элемента в начало списка
     if (!list->head)
     {
         list->head = node;
+        list->tail = node;
     }
     else
     {
@@ -69,15 +71,12 @@ void push_back(List *list, Node *node)
     if (!list->head)
     {
         list->head = node;
+        list->tail = node;
     }
     else
     {
-        Node *current = list->head;
-        while (current->next)
-        {
-            current = current->next;
-        }
-        current->next = node;
+        list->tail->next = node;
+        list->tail = node;
     }
     list->len++;
 }
@@ -92,6 +91,10 @@ void pop_front(List *list)
     }
     Node *prev_head = list->head;
     list->head = list->head->next;
+    if (list->head == NULL)
+    {
+        list->tail = NULL;
+    }
     free(prev_head);
     list->len--;
 }
@@ -115,6 +118,10 @@ int delete_fromlist_by_key(List *list, int key)
             else
             {
                 prev->next = cur->next;
+            }
+            if (cur == list->tail)
+            {
+                list->tail = prev;
             }
 
             free(cur);
@@ -146,6 +153,7 @@ int clear_list(List *list)
     }
 
     list->head = NULL;
+    list->tail = NULL;
     list->len = 0;
 
     return 1;

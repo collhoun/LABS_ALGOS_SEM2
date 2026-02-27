@@ -21,6 +21,7 @@ typedef struct List
 {
     // сам односвзяный список
     Node *head;
+    Node *tail;
     int len;
 } List;
 
