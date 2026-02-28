@@ -3,6 +3,8 @@
 // список List - список потомков каждого узла дерева
 // каждый Node List - структура с указателем на след. элемент и указателем на потомка узла дерева
 
+// доделать консоль с вводом выводом
+
 TreeNode *create_TreeNode(int value, int max_children)
 {
     // создание узла дерева
@@ -368,4 +370,26 @@ int count_width(TreeNode *root)
 
     free(queue);
     return max_width;
+}
+
+// вспомогательная функция для проверки наличия узла в дереве
+int is_in_tree(TreeNode *root, TreeNode *treenode)
+{
+    if (!root || !treenode)
+        return 0;
+
+    if (root == treenode || root->key == treenode->key)
+        return 1;
+
+    if (!root->list_of_children)
+        return 0;
+
+    Node *cur = root->list_of_children->head;
+    while (cur)
+    {
+        if (is_in_tree(cur->child, treenode))
+            return 1;
+        cur = cur->next;
+    }
+    return 0;
 }

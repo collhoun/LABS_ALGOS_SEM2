@@ -1,27 +1,5 @@
 #include "trees.h"
 
-// вспомогательная функция для проверки наличия узла в дереве
-int is_in_tree(TreeNode *root, TreeNode *treenode)
-{
-    if (!root || !treenode)
-        return 0;
-
-    if (root == treenode || root->key == treenode->key)
-        return 1;
-
-    if (!root->list_of_children)
-        return 0;
-
-    Node *cur = root->list_of_children->head;
-    while (cur)
-    {
-        if (is_in_tree(cur->child, treenode))
-            return 1;
-        cur = cur->next;
-    }
-    return 0;
-}
-
 void test_1_add()
 {
     printf("TEST_1 TREE ADD \n");
@@ -127,6 +105,8 @@ void test_4()
     printf("TEST_4 FINISHED\n\n");
 }
 
+// как перехватывать сигналы? по типу ошибок
+// сделать чтобы тест не падал
 void test_5()
 {
     printf("TEST_5 DELETE ROOT (expect program to exit)\n");
