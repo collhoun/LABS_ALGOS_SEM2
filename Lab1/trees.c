@@ -393,3 +393,80 @@ int is_in_tree(TreeNode *root, TreeNode *treenode)
     }
     return 0;
 }
+
+void interactive_mode()
+{
+    int choice = 0;
+    Tree *tree = NULL;
+    while (choice != 6)
+    {
+
+        printf("Choose an option:\n");
+        printf("1. Create a tree\n");
+        printf("2. Add a node\n");
+        printf("3. Print the tree\n");
+        printf("4. Delete a node\n");
+        printf("5. Count tree width\n");
+        printf("6. Exit\n");
+        scanf("%d", &choice);
+        if (choice == 1)
+        {
+            printf("Enter root key and max children: ");
+            int root_key, max_children;
+            scanf("%d %d", &root_key, &max_children);
+            TreeNode *root = create_TreeNode(root_key, max_children);
+            tree = init_tree(root);
+        }
+        else if (choice == 2)
+        {
+            printf("Enter key and max children: ");
+            int new_node_key, max_children;
+            scanf("%d %d", &new_node_key, &max_children);
+            TreeNode *new_node = create_TreeNode(new_node_key, max_children);
+            if (!tree)
+            {
+                fprintf(stderr, "Tree not init.\n");
+                return;
+            }
+            add_in_tree(tree->root, new_node);
+        }
+        else if (choice == 3)
+        {
+            if (!tree)
+            {
+                fprintf(stderr, "Tree is not init.\n");
+                return;
+            }
+            printf("---------------------------------\n");
+            print_tree(tree);
+            printf("---------------------------------\n");
+        }
+        else if (choice == 4)
+        {
+            printf("Enter key of node to delete: ");
+            int key;
+            scanf("%d", &key);
+            if (!tree)
+            {
+                fprintf(stderr, "Tree is not init.\n");
+                return;
+            }
+            delete_node(tree->root, key);
+        }
+        else if (choice == 5)
+        {
+            if (!tree)
+            {
+                fprintf(stderr, "Tree is not init.\n");
+                return;
+            }
+            int width = count_width(tree->root);
+            printf("Tree width: %d\n", width);
+        }
+        else if (choice == 6)
+        {
+            printf("Exiting...\n");
+            exit(0);
+        }
+    }
+}

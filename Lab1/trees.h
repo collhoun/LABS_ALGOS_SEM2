@@ -8,7 +8,6 @@
 // Forward declarations структур
 typedef struct TreeNode TreeNode;
 typedef struct Tree Tree;
-
 typedef struct TreeNode
 {
     // узел дерева
@@ -36,5 +35,8 @@ void delete_tree_node(TreeNode *node);
 int count_width_tree(Tree *tree);
 int count_width(TreeNode *root);
 int is_in_tree(TreeNode *root, TreeNode *treenode);
+
+// функции для работы с деревом
+void interactive_mode();
 
 #endif
