@@ -12,7 +12,7 @@ TreeNode *create_TreeNode(int value, int max_children)
     if (!treenode)
     {
         fprintf(stderr, "Unable to allocate memory");
-        exit(1);
+        return NULL;
     }
     treenode->key = value;
     treenode->list_of_children = init_list();
@@ -27,7 +27,7 @@ Node *create_node(TreeNode *treenode)
     if (!node)
     {
         fprintf(stderr, "Unable to allocate memory");
-        exit(1);
+        return NULL;
     }
     node->next = NULL;
     node->child = treenode;
@@ -41,7 +41,7 @@ List *init_list()
     if (!list)
     {
         fprintf(stderr, "Unable to allocate memory");
-        exit(1);
+        return NULL;
     }
     list->head = NULL;
     list->tail = NULL;
@@ -83,13 +83,13 @@ void push_back(List *list, Node *node)
     list->len++;
 }
 
-void pop_front(List *list)
+int pop_front(List *list)
 {
     // удаление элемента из списка на месте
     if (!list->head)
     {
         fprintf(stderr, "Unable to pop from empty list");
-        exit(1);
+        return 0;
     }
     Node *prev_head = list->head;
     list->head = list->head->next;
@@ -99,6 +99,7 @@ void pop_front(List *list)
     }
     free(prev_head);
     list->len--;
+    return 1;
 }
 
 int delete_fromlist_by_key(List *list, int key)
@@ -168,7 +169,7 @@ Tree *init_tree(TreeNode *root)
     if (!tree)
     {
         fprintf(stderr, "Unable to allocate memory");
-        exit(1);
+        return NULL;
     }
     tree->root = root;
     return tree;
@@ -205,7 +206,7 @@ void print_tree(Tree *tree)
     if (!tree->root)
     {
         printf("Empty tree...\n");
-        exit(1);
+        return;
     }
     print_tree_recursive(tree->root, 0);
 }
@@ -215,13 +216,13 @@ void print_tree_recursive(TreeNode *node, int depth)
     if (!node)
     {
         fprintf(stderr, "Erorr empty node");
-        exit(1);
+        return;
     };
 
     if (depth > 100)
     {
         printf("  ERROR: Tree depth exceeded 100 levels\n");
-        exit(1);
+        return;
     }
 
     for (int i = 0; i < depth; i++)
@@ -249,13 +250,13 @@ int delete_node(TreeNode *treenode, int key)
     if (!treenode)
     {
         fprintf(stderr, "Erorr empty treenode");
-        exit(1);
+        return 0;
     };
 
     if (treenode->key == key)
     {
         fprintf(stderr, "Cannot delete the root");
-        exit(1);
+        return 0;
     };
 
     Node *cur = treenode->list_of_children->head;
@@ -282,7 +283,7 @@ void delete_tree_node(TreeNode *node)
     if (!node)
     {
         fprintf(stderr, "Erorr empty node");
-        exit(1);
+        return;
     };
 
     Node *child_node = node->list_of_children->head;
@@ -304,7 +305,7 @@ int count_width_tree(Tree *tree)
     if (!tree->root)
     {
         fprintf(stderr, "Erorr empty tree");
-        exit(1);
+        return 0;
     };
     return count_width(tree->root);
 }
@@ -314,14 +315,14 @@ int count_width(TreeNode *root)
     if (!root)
     {
         fprintf(stderr, "Erorr empty root");
-        exit(1);
+        return 0;
     };
 
     List *queue = init_list();
     if (!queue)
     {
         fprintf(stderr, "Erorr empty queue");
-        exit(1);
+        return 0;
     };
 
     Node *root_node = create_node(root);
