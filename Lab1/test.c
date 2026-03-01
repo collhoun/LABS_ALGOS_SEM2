@@ -1,6 +1,6 @@
 #include "trees.h"
 
-void test_1_add()
+int test_1_add()
 {
     printf("TEST_1 TREE ADD \n");
     TreeNode *root = create_TreeNode(1, 3);
@@ -22,10 +22,11 @@ void test_1_add()
 
     print_tree(tree);
     free(tree);
-    printf("TEST_1 TREE ADD FINISHED WITH SUCCESS\n\n");
+    printf("TEST_1 FINISHED\n\n");
+    return ans;
 }
 
-void test_2_delete()
+int test_2_delete()
 {
     printf("TEST_2 TREE DELETE \n");
     TreeNode *root = create_TreeNode(1, 3);
@@ -51,10 +52,11 @@ void test_2_delete()
     printf("Tree after deletion:\n");
     print_tree(tree);
     free(tree);
-    printf("TEST_2 TREE DELETE FINISHED WITH SUCCESS\n");
+    printf("TEST_2 FINISHED\n");
+    return ans;
 }
 
-void test_3_find_width()
+int test_3_find_width()
 {
     printf("TEST_3 FIND WIDTH\n");
 
@@ -70,14 +72,19 @@ void test_3_find_width()
 
     print_tree(tree);
     int width = count_width_tree(tree);
+    int ans = 0;
     if (width == 2)
+    {
+        ans = 1;
         printf("Width=%d - True\n", width);
+    }
     else
         printf("ERORR\n");
     printf("TEST_3 FINISHED");
+    return ans;
 }
 
-void test_4()
+int test_4()
 {
     printf("TEST_4 LINEAR LIST \n");
     TreeNode *root = create_TreeNode(0, 1);
@@ -103,11 +110,10 @@ void test_4()
     print_tree(tree);
     free(tree);
     printf("TEST_4 FINISHED\n\n");
+    return ans && width;
 }
 
-// как перехватывать сигналы? по типу ошибок
-// сделать чтобы тест не падал
-void test_5()
+int test_5()
 {
     printf("TEST_5 DELETE ROOT\n");
     TreeNode *root = create_TreeNode(100, 2);
@@ -120,6 +126,7 @@ void test_5()
     else
         printf("Root was deleted with succes! \n");
     free(tree);
+    return res;
 }
 
 int main()
