@@ -427,7 +427,7 @@ void interactive_mode()
             if (!tree)
             {
                 fprintf(stderr, "Tree not init.\n");
-                return;
+                continue;
             }
             add_in_tree(tree->root, new_node);
         }
@@ -436,7 +436,7 @@ void interactive_mode()
             if (!tree)
             {
                 fprintf(stderr, "Tree is not init.\n");
-                return;
+                continue;
             }
             printf("---------------------------------\n");
             print_tree(tree);
@@ -450,7 +450,7 @@ void interactive_mode()
             if (!tree)
             {
                 fprintf(stderr, "Tree is not init.\n");
-                return;
+                continue;
             }
             delete_node(tree->root, key);
         }
@@ -459,7 +459,7 @@ void interactive_mode()
             if (!tree)
             {
                 fprintf(stderr, "Tree is not init.\n");
-                return;
+                continue;
             }
             int width = count_width(tree->root);
             printf("Tree width: %d\n", width);

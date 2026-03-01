@@ -126,20 +126,23 @@ int test_5()
     else
         printf("Root was deleted with succes! \n");
     free(tree);
-    return res;
+    printf("TEST_5 FINISHED\n\n");
+    return !res;
 }
 
-int main()
+int check_tests()
 {
-    test_1_add();
+    int accepted_tests = 0;
+    accepted_tests += test_1_add();
     printf("------------------------------\n");
-    test_2_delete();
+    accepted_tests += test_2_delete();
     printf("------------------------------\n");
-    test_3_find_width();
+    accepted_tests += test_3_find_width();
     printf("------------------------------\n");
-    test_4();
+    accepted_tests += test_4();
     printf("------------------------------\n");
-    test_5();
-
+    accepted_tests += test_5();
+    if (accepted_tests == 5)
+        return 1;
     return 0;
 }
