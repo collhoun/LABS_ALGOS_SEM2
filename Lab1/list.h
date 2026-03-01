@@ -27,7 +27,7 @@ typedef struct List
 List *init_list();
 void push_front(List *list, Node *node);
 void push_back(List *list, Node *node);
-void pop_front(List *list);
+int pop_front(List *list);
 int delete_fromlist_by_key(List *list, int key);
 int clear_list(List *list);
 

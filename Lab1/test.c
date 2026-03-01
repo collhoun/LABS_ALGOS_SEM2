@@ -109,13 +109,16 @@ void test_4()
 // сделать чтобы тест не падал
 void test_5()
 {
-    printf("TEST_5 DELETE ROOT (expect program to exit)\n");
+    printf("TEST_5 DELETE ROOT\n");
     TreeNode *root = create_TreeNode(100, 2);
     Tree *tree = init_tree(root);
 
-    delete_node(root, root->key);
+    int res = delete_node(root, root->key);
 
-    printf("Error: delete_node did not exit when deleting root\n");
+    if (!res)
+        printf("Error: delete_node did not exit when deleting root\n");
+    else
+        printf("Root was deleted with succes! \n");
     free(tree);
 }
 
