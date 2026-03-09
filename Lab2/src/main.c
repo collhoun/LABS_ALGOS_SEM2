@@ -1,12 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-typedef struct MyStructure
-{
-    const char *key;
-    const char *value;
-} MyStructure;
+#include "main.h"
 
 int read_samples(const char *filename, MyStructure **samples)
 {
@@ -131,6 +123,7 @@ void demonstration(const char *filename)
     free((void *)key3);
 }
 
+#ifndef TEST
 int main()
 {
     demonstration("data_samples/random_samples.txt");
@@ -138,3 +131,4 @@ int main()
     demonstration("data_samples/reversed_samples.txt");
     return 0;
 }
+#endif
