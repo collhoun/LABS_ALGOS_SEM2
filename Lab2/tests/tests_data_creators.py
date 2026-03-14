@@ -31,7 +31,10 @@ def write_samples(samples: list, file_name: str) -> bool:
         with open(file_name, 'w') as f:
             f.write(str(len(samples)) + '\n')
             for key, value in samples:
-                f.write(key + ' ' + value + '\n')
+                f.write(key)
+                f.write('\n')
+                f.write(value)
+                f.write('\n')
         return True
     except Exception as e:
         print(e)
