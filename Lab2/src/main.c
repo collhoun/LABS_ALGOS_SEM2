@@ -1,11 +1,10 @@
 #include "main.h"
-// скинуть докстринги в питоне
 // поправить const char на char
 // сделать так, чтобы я мог читать строки произвольной длины (например делать realloc)
 // плюс два теста
 // лучше считывать не через fscanf
 // поправить текстовый файл с хранением информации
-int read_samples(const char *filename, MyStructure **samples)
+int read_samples(char *filename, MyStructure **samples)
 {
     FILE *file = fopen(filename, "r");
     if (!file)
@@ -48,7 +47,7 @@ int read_samples(const char *filename, MyStructure **samples)
     return len_samples;
 }
 
-int binary_search_insert(MyStructure *samples, int len, const char *key)
+int binary_search_insert(MyStructure *samples, int len, char *key)
 {
     int left = 0, right = len;
     while (left < right)
@@ -81,7 +80,7 @@ int insertion_sort(MyStructure *samples, int len)
     return 1;
 }
 
-void demonstration(const char *filename)
+void demonstration(char *filename)
 {
     MyStructure *samples;
     int len_samples = read_samples(filename, &samples);
