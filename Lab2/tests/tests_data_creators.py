@@ -29,7 +29,7 @@ def write_samples(samples: list, file_name: str) -> bool:
     """
     try:
         with open(file_name, 'w') as f:
-            f.write(str(len(samples)) + '\n')
+            f.write(str(len(samples) * 2) + '\n')
             for key, value in samples:
                 f.write(key)
                 f.write('\n')
