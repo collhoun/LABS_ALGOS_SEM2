@@ -1,6 +1,5 @@
 #include "main.h"
 
-// плюс два теста
 int read_samples(char *filename, MyStructure **samples)
 {
     FILE *file = fopen(filename, "r");
@@ -9,14 +8,14 @@ int read_samples(char *filename, MyStructure **samples)
         return -1;
     }
 
-    int len_samples;
-    if (fscanf(file, "%d ", &len_samples) != 1)
+    int expected_len = 0;
+    if (fscanf(file, "%d ", &expected_len) != 1)
     {
         fclose(file);
         return -2;
     }
 
-    *samples = (MyStructure *)malloc(len_samples * sizeof(MyStructure));
+    *samples = (MyStructure *)malloc(expected_len * sizeof(MyStructure));
     if (*samples == NULL)
     {
         fclose(file);
@@ -26,8 +25,8 @@ int read_samples(char *filename, MyStructure **samples)
     char *key = NULL, *value = NULL;
     size_t key_len = 0, value_len = 0;
     ssize_t key_read, value_read;
-
-    for (int i = 0; i < len_samples; i++)
+    int i;
+    for (i = 0; i < expected_len; i++)
     {
         key_read = getline(&key, &key_len, file);
         if (key_read == -1)
@@ -48,7 +47,17 @@ int read_samples(char *filename, MyStructure **samples)
     free(value);
 
     fclose(file);
-    return len_samples;
+    if (i < expected_len)
+    {
+        MyStructure *new_samples = (MyStructure *)realloc(*samples, i * sizeof(MyStructure));
+        if (!new_samples && i > 0)
+        {
+            free(*samples);
+            return -4;
+        }
+        *samples = new_samples;
+    }
+    return i;
 }
 
 int binary_search_insert(MyStructure *samples, int len, char *key)
@@ -63,15 +72,20 @@ int binary_search_insert(MyStructure *samples, int len, char *key)
             right = mid;
     }
 
-    // if (left < len && strcmp(samples[left].key, key) != 0)
-    //     return -1;
     return left;
+}
+int find_by_key(MyStructure *samples, int len, char *key)
+{
+    int pos = binary_search_insert(samples, len, key);
+    if (pos < len && strcmp(samples[pos].key, key) == 0)
+        return pos;
+    else
+        return -1;
 }
 int insertion_sort(MyStructure *samples, int len)
 {
     for (int i = 1; i < len; i++)
     {
-        // проверить почему samples битый
         MyStructure tmp = samples[i];
         int pos = binary_search_insert(samples, i, tmp.key);
 
@@ -113,9 +127,9 @@ void demonstration(char *filename)
     printf("Enter three keys to find:\n");
     scanf("%s %s %s", key1, key2, key3);
 
-    int pos1 = binary_search_insert(samples, len_samples, key1);
-    int pos2 = binary_search_insert(samples, len_samples, key2);
-    int pos3 = binary_search_insert(samples, len_samples, key3);
+    int pos1 = find_by_key(samples, len_samples, key1);
+    int pos2 = find_by_key(samples, len_samples, key2);
+    int pos3 = find_by_key(samples, len_samples, key3);
     if (pos1 >= 0)
     {
         printf("%s %s\n", samples[pos1].key, samples[pos1].value);
@@ -138,9 +152,9 @@ void demonstration(char *filename)
 #ifndef TEST
 int main()
 {
-    demonstration("C:/Users/Huawei/C_programming/Labs_algos/Lab2/data_samples/random_samples.txt");
-    demonstration("C:/Users/Huawei/C_programming/Labs_algos/Lab2/data_samples/sorted_samples.txt");
-    demonstration("C:/Users/Huawei/C_programming/Labs_algos/Lab2/data_samples/reversed_samples.txt");
+    demonstration("data_samples/random_samples.txt");
+    demonstration("data_samples/sorted_samples.txt");
+    demonstration("data_samples/reversed_samples.txt");
     return 0;
 }
 #endif
