@@ -1,9 +1,6 @@
 #include "main.h"
-// поправить const char на char
-// сделать так, чтобы я мог читать строки произвольной длины (например делать realloc)
+
 // плюс два теста
-// лучше считывать не через fscanf
-// поправить текстовый файл с хранением информации
 int read_samples(char *filename, MyStructure **samples)
 {
     FILE *file = fopen(filename, "r");
@@ -13,7 +10,7 @@ int read_samples(char *filename, MyStructure **samples)
     }
 
     int len_samples;
-    if (fscanf(file, "%d", &len_samples) != 1)
+    if (fscanf(file, "%d ", &len_samples) != 1)
     {
         fclose(file);
         return -2;
@@ -26,22 +23,29 @@ int read_samples(char *filename, MyStructure **samples)
         return -3;
     }
 
-    char key_buffer[1024];
-    char value_buffer[1024];
+    char *key = NULL, *value = NULL;
+    size_t key_len = 0, value_len = 0;
+    ssize_t key_read, value_read;
 
     for (int i = 0; i < len_samples; i++)
     {
-        if (fscanf(file, "%s %s", key_buffer, value_buffer) != 2)
-        {
-            // нужна ли здесь проверка на память?
-            free(*samples);
-            fclose(file);
-            return -4;
-        }
+        key_read = getline(&key, &key_len, file);
+        if (key_read == -1)
+            break;
+        if (key[key_read - 1] == '\n')
+            key[key_read - 1] = '\0';
 
-        (*samples)[i].key = strdup(key_buffer);
-        (*samples)[i].value = strdup(value_buffer);
+        value_read = getline(&value, &value_len, file);
+        if (value_read == -1)
+            break;
+        if (value[value_read - 1] == '\n')
+            value[value_read - 1] = '\0';
+
+        (*samples)[i].key = strdup(key);
+        (*samples)[i].value = strdup(value);
     }
+    free(key);
+    free(value);
 
     fclose(file);
     return len_samples;
@@ -98,9 +102,9 @@ void demonstration(char *filename)
         printf("%s %s\n", samples[i].key, samples[i].value);
     }
 
-    const char *key1 = malloc(1024);
-    const char *key2 = malloc(1024);
-    const char *key3 = malloc(1024);
+    char *key1 = malloc(1024);
+    char *key2 = malloc(1024);
+    char *key3 = malloc(1024);
     if (!key1 || !key2 || !key3)
     {
         fprintf(stderr, "Ошибка выделения памяти\n");
