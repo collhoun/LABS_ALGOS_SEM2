@@ -20,6 +20,60 @@ char *read_expr()
     return expression;
 }
 
+char *insertzeros(char *expr)
+{
+    if (!expr)
+        return NULL;
+
+    size_t len = strlen(expr);
+    char *result = malloc(len * 2 + 1);
+    if (!result)
+        return NULL;
+
+    int res_idx = 0;
+    char prev_znachimiy = '\0';
+
+    for (size_t i = 0; i < len; ++i)
+    {
+        char ch = expr[i];
+        if (ch == '-')
+        {
+            int is_unary = 0;
+
+            if (prev_znachimiy == '\0')
+                is_unary = 1;
+
+            else if (prev_znachimiy == '(')
+                is_unary = 1;
+
+            if (is_unary)
+            {
+                result[res_idx++] = '0';
+                result[res_idx++] = '-';
+            }
+            else
+                result[res_idx++] = '-';
+
+            prev_znachimiy = '-';
+        }
+        else
+        {
+            result[res_idx++] = ch;
+            prev_znachimiy = ch;
+        }
+    }
+
+    result[res_idx] = '\0';
+
+    char *final_result = realloc(result, res_idx + 1);
+    if (!final_result)
+    {
+        free(result);
+        return NULL;
+    }
+    return final_result;
+}
+
 int tokenize(char *expression, char **tokens)
 {
     // разделяет выражение на токены
