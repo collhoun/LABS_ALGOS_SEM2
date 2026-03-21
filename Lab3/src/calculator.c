@@ -1,4 +1,5 @@
 #include "calculator.h"
+#include <math.h>
 int calculate_tree(TreeNode *root)
 {
     if (!root)
@@ -22,6 +23,8 @@ int calculate_tree(TreeNode *root)
         if (right_val == 0)
             return 0;
         return left_val / right_val;
+    case '^':
+        return pow(left_val, right_val);
     default:
         return 0;
     }
