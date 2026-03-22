@@ -122,6 +122,7 @@ int tokenize(char *expression, char **tokens)
 
 void free_tokens(char **tokens, int count)
 {
+    // освобождает память, выделенную под токены
     for (int i = 0; i < count; i++)
     {
         free(tokens[i]);
@@ -131,6 +132,7 @@ void free_tokens(char **tokens, int count)
 
 int find_priority(char operator)
 {
+    // находит приоритет операций
     char OPERATORS_PRIORITY[3][2] = {{'+', '-'}, {'*', '/'}, {'^', '^'}};
     int len_operators = 3;
     int i = 0;
@@ -148,6 +150,7 @@ int find_priority(char operator)
 
 int is_all_digits(char *token)
 {
+    // проверяет является ли токен числом
     for (int i = 0; i < strlen(token); i++)
     {
         if (!isdigit(token[i]))

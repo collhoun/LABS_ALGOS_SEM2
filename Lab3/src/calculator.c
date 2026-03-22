@@ -2,6 +2,7 @@
 #include <math.h>
 int calculate_tree(TreeNode *root)
 {
+    // функция для вычисления значения выражения в дереве
     if (!root)
         return 0;
 

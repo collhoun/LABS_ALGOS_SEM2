@@ -1,7 +1,7 @@
 #include "tree.h"
 #include "tokenization.h"
 #include "calculator.h"
-// написать функцию для вставки нуля при нахождении унарного минуса
+
 int main()
 {
     // пример для вычисления: 213  -23*(12-10)+3
