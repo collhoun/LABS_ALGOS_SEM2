@@ -1,0 +1,20 @@
+Insert key y in tree
+Insert key aaxmfo in tree
+Trying to delete key mlkj in tree
+Key ap not found
+Insert key slyvlx in tree
+Insert key u in tree
+Key dunnz not found
+Key ttdz not found
+Key k not found
+PRINTED TREE:
+Key kfz not found
+Trying to delete key rlweyd in tree
+Insert key phzzu in tree
+Insert key wtpp in tree
+Key jrai not found
+Insert key u in tree
+PRINTED TREE:
+Trying to delete key p in tree
+Insert key rgcyy in tree
+Insert key i in tree
