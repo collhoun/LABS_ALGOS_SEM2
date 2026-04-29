@@ -1,0 +1,3 @@
+C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googlebenchmark-subbuild/CMakeFiles/googlebenchmark-populate.dir
+C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googlebenchmark-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googlebenchmark-subbuild/CMakeFiles/rebuild_cache.dir

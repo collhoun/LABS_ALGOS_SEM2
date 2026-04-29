@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/cmake_install.cmake",
+		"C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googletest-build/cmake_install.cmake",
+		"C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googletest-build/googlemock/gtest/cmake_install.cmake",
+		"C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googlebenchmark-build/cmake_install.cmake",
+		"C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/_deps/googlebenchmark-build/src/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
