@@ -4,6 +4,8 @@ static char *my_strdup(const char *s)
 {
     size_t len = strlen(s) + 1;
     char *dup = malloc(len);
+    if (!dup)
+        return NULL;
     if (dup)
     {
         memcpy(dup, s, len);

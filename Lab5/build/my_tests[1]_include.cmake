@@ -1,5 +1,0 @@
-if(EXISTS "C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/my_tests[1]_tests.cmake")
-  include("C:/Users/Huawei/C_programming/Labs_algos/Lab5/build/my_tests[1]_tests.cmake")
-else()
-  add_test(my_tests_NOT_BUILT my_tests_NOT_BUILT)
-endif()

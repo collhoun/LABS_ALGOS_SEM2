@@ -13,7 +13,7 @@ typedef enum
 
 typedef struct TreeNode
 {
-    char* key;
+    char *key;
     int value;
     NodeColor color;
     struct TreeNode *left;
@@ -29,11 +29,11 @@ typedef struct RedBlackTree
 extern TreeNode *NIL;
 
 RedBlackTree *create_tree();
-TreeNode *create_node(char* key, int value);
+TreeNode *create_node(char *key, int value);
 
-void insert(RedBlackTree *tree, char* key, int value);
-void delete_tree_node(RedBlackTree *tree, char* key);
-int find(RedBlackTree *tree, char* key);
+void insert(RedBlackTree *tree, char *key, int value);
+void delete_tree_node(RedBlackTree *tree, char *key);
+int find(RedBlackTree *tree, char *key);
 
 void print_tree(TreeNode *root);
 void print_tree_recursive(TreeNode *node, int depth);

@@ -87,6 +87,7 @@ void test_duplicate_keys()
     samples[4].value = "value5";
     insertion_sort(samples, 5);
     assert(strcmp(samples[0].key, "key1") == 0);
+    assert(strcmp(samples[0].value, "value1") == 0);
     assert(strcmp(samples[1].key, "key1") == 0);
     assert(strcmp(samples[2].key, "key1") == 0);
     assert(strcmp(samples[3].key, "key2") == 0);

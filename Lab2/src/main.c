@@ -1,5 +1,5 @@
 #include "main.h"
-
+// вопрос про  makefile
 int read_samples(char *filename, MyStructure **samples)
 {
     FILE *file = fopen(filename, "r");
