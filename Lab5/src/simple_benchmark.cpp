@@ -33,7 +33,7 @@ void benchmark_floyd_warshall()
     std::cout << "\n=== Floyd-Warshall Algorithm ===" << std::endl;
     print_header();
 
-    int sizes[] = {10, 20, 30, 50, 100};
+    int sizes[] = {10, 20, 30, 50, 100, 200, 300};
 
     for (int size : sizes)
     {
@@ -66,55 +66,11 @@ void benchmark_floyd_warshall()
     }
 }
 
-void benchmark_dfs_cycle()
-{
-    std::cout << "\n=== DFS Cycle Detection ===" << std::endl;
-    print_header();
-
-    int sizes[] = {10, 20, 30, 50, 100};
-
-    for (int size : sizes)
-    {
-        int num_edges = size * 2;
-        srand(time(NULL));
-        Edge *edges = create_array(num_edges);
-
-        for (int i = 0; i < num_edges; i++)
-        {
-            edges[i].src = rand() % size;
-            edges[i].dest = rand() % size;
-            edges[i].weight = rand() % 100 + 1;
-        }
-
-        int **matrix = create_matrix(size, num_edges, edges);
-        free(edges);
-
-        int iterations = 10;
-        auto start = std::chrono::high_resolution_clock::now();
-
-        for (int iter = 0; iter < iterations; iter++)
-        {
-            is_cycled(matrix, size);
-        }
-
-        auto end = std::chrono::high_resolution_clock::now();
-        double total_time_ms = std::chrono::duration<double, std::milli>(end - start).count();
-        double time_per_call = total_time_ms / iterations;
-
-        char buffer[64];
-        snprintf(buffer, sizeof(buffer), "is_cycled(size=%d) avg", size);
-        print_result(buffer, size, time_per_call);
-
-        free_matrix(matrix, size);
-    }
-}
-
 int main()
 {
     std::cout << "=== Graph Algorithms Benchmarking ===" << std::endl;
 
     benchmark_floyd_warshall();
-    benchmark_dfs_cycle();
 
     std::cout << "\n=== Benchmarking Complete ===" << std::endl;
 

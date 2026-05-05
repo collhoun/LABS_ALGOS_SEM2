@@ -1,6 +1,7 @@
 #include "edge_array.h"
 #include "graph.h"
 #include <string.h>
+
 int main()
 {
     FILE *fp = NULL;
@@ -49,15 +50,15 @@ int main()
 
     int **matrix = create_matrix(size_vertices, size_edges, edges);
     print_matrix(size_vertices, matrix);
+    int **dist = FloydWarshall(size_vertices, matrix);
+    print_matrix(size_vertices, dist);
+    free_matrix(dist, size_vertices);
 
-    if (is_cycled(matrix, size_vertices))
-        printf("Graph is cycled\n");
+    if (is_negative_cycle(size_vertices, dist))
+        printf("Graph has negative cycle\n Algorithm cannot compute shortest paths.\n");
     else
     {
-        printf("Graph is not cycled\n");
-        int **dist = FloydWarshall(size_vertices, matrix);
-        print_matrix(size_vertices, dist);
-        free_matrix(dist, size_vertices);
+        printf("Shortest paths computed successfully.\n");
     }
 
     free(edges);

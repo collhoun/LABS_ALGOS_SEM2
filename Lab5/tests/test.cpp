@@ -55,7 +55,32 @@ TEST(GraphTest, FloydWarshall)
     free(dist);
 }
 
-TEST(GraphTest, IsCycledAcyclic)
+TEST(GraphTest, FloydWarshallNegativeWeights)
+{
+    int size = 3;
+    int **matrix = (int **)malloc(size * sizeof(int *));
+    for (int i = 0; i < size; i++)
+    {
+        matrix[i] = (int *)malloc(size * sizeof(int));
+        for (int j = 0; j < size; j++)
+            matrix[i][j] = 0;
+    }
+    matrix[0][1] = -1;
+    matrix[1][2] = 2;
+    int **dist = FloydWarshall(size, matrix);
+    ASSERT_EQ(dist[0][2], 1);
+    ASSERT_EQ(dist[0][0], 0);
+    ASSERT_EQ(is_negative_cycle(size, dist), 0);
+    for (int i = 0; i < size; i++)
+    {
+        free(matrix[i]);
+        free(dist[i]);
+    }
+    free(matrix);
+    free(dist);
+}
+
+TEST(GraphTest, IsCycledNegativeAcyclic)
 {
     int size = 4;
     int **matrix = (int **)malloc(size * sizeof(int *));
@@ -68,16 +93,21 @@ TEST(GraphTest, IsCycledAcyclic)
     matrix[0][1] = 1;
     matrix[1][2] = 1;
     matrix[2][3] = 1;
-    ASSERT_EQ(is_cycled(matrix, size), 0);
+    int **dist = FloydWarshall(size, matrix);
+    ASSERT_EQ(is_negative_cycle(size, dist), 0);
 
     for (int i = 0; i < size; i++)
+    {
         free(matrix[i]);
+        free(dist[i]);
+    }
     free(matrix);
+    free(dist);
 }
 
-TEST(GraphTest, IsCycledCyclic)
+TEST(GraphTest, IsCycledNegativeDisconnectedAcyclic)
 {
-    int size = 3;
+    int size = 5;
     int **matrix = (int **)malloc(size * sizeof(int *));
     for (int i = 0; i < size; i++)
     {
@@ -87,15 +117,16 @@ TEST(GraphTest, IsCycledCyclic)
     }
     matrix[0][1] = 1;
     matrix[1][2] = 1;
-    matrix[2][0] = 1;
-    ASSERT_EQ(is_cycled(matrix, size), 1);
+    matrix[3][4] = 1;
+    int **dist = FloydWarshall(size, matrix);
+    ASSERT_EQ(is_negative_cycle(size, dist), 0);
 
     for (int i = 0; i < size; i++)
         free(matrix[i]);
     free(matrix);
 }
 
-TEST(GraphTest, IsCycledSelfLoop)
+TEST(GraphTest, IsCycledPositiveSelfLoop)
 {
     int size = 3;
     int **matrix = (int **)malloc(size * sizeof(int *));
@@ -106,14 +137,19 @@ TEST(GraphTest, IsCycledSelfLoop)
             matrix[i][j] = 0;
     }
     matrix[0][0] = 1;
-    ASSERT_EQ(is_cycled(matrix, size), 1);
+    int **dist = FloydWarshall(size, matrix);
+    ASSERT_EQ(is_negative_cycle(size, dist), 0);
 
     for (int i = 0; i < size; i++)
+    {
         free(matrix[i]);
+        free(dist[i]);
+    }
     free(matrix);
+    free(dist);
 }
 
-TEST(GraphTest, IsCycledDisconnectedCyclic)
+TEST(GraphTest, IsCycledPositiveDisconnectedCyclic)
 {
     int size = 5;
     int **matrix = (int **)malloc(size * sizeof(int *));
@@ -128,9 +164,39 @@ TEST(GraphTest, IsCycledDisconnectedCyclic)
     matrix[1][2] = 1;
     matrix[2][0] = 1;
     matrix[3][4] = 1;
-    ASSERT_EQ(is_cycled(matrix, size), 1);
+    int **dist = FloydWarshall(size, matrix);
+    ASSERT_EQ(is_negative_cycle(size, dist), 0);
 
     for (int i = 0; i < size; i++)
+    {
         free(matrix[i]);
+        free(dist[i]);
+    }
     free(matrix);
+    free(dist);
+}
+
+TEST(GraphTest, IsCycledNegativeCycle)
+{
+    int size = 3;
+    int **matrix = (int **)malloc(size * sizeof(int *));
+    for (int i = 0; i < size; i++)
+    {
+        matrix[i] = (int *)malloc(size * sizeof(int));
+        for (int j = 0; j < size; j++)
+            matrix[i][j] = 0;
+    }
+    matrix[0][1] = 1;
+    matrix[1][2] = -3;
+    matrix[2][0] = 1;
+    int **dist = FloydWarshall(size, matrix);
+    ASSERT_EQ(is_negative_cycle(size, dist), 1);
+
+    for (int i = 0; i < size; i++)
+    {
+        free(matrix[i]);
+        free(dist[i]);
+    }
+    free(matrix);
+    free(dist);
 }

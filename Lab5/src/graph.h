@@ -7,5 +7,5 @@ int **create_matrix(int size, int num_edges, Edge *edges);
 void print_matrix(int size, int **matrix);
 void free_matrix(int **matrix, int size);
 int **FloydWarshall(int size, int **matrix);
-int is_cycled(int **matrix, int size);
+int is_negative_cycle(int size, int **dist);
 #endif

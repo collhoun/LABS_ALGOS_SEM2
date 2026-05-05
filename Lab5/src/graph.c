@@ -74,63 +74,12 @@ int **FloydWarshall(int size, int **matrix)
     }
     return dist;
 }
-int dfs_recursive(int v, int veritates_number, int *visited, int **matrix)
+int is_negative_cycle(int size, int **dist)
 {
-    // возвращает 1 если есть циклы в графе, 0 иначе
-    visited[v] = 1;
-    for (int i = 0; i < veritates_number; i++)
+    for (int i = 0; i < size; i++)
     {
-        if (matrix[v][i] != 0)
-        {
-            if (visited[i])
-                return 1;
-            if (!visited[i] && dfs_recursive(i, veritates_number, visited, matrix))
-                return 1;
-        }
+        if (dist[i][i] < 0)
+            return 1;
     }
-    visited[v] = 2;
     return 0;
-}
-
-void dfs(int **matrix, int veritates_number)
-{
-    int *visited = (int *)malloc(sizeof(int) * veritates_number);
-    for (int i = 0; i < veritates_number; i++)
-    {
-        visited[i] = 0;
-    }
-    for (int i = 0; i < veritates_number; i++)
-    {
-        if (!visited[i])
-        {
-            dfs_recursive(i, veritates_number, visited, matrix);
-        }
-    }
-
-    free(visited);
-}
-
-int is_cycled(int **matrix, int veritates_number)
-{
-    if (!matrix || veritates_number <= 0)
-        return 0;
-    int *visited = (int *)malloc(sizeof(int) * veritates_number);
-    for (int i = 0; i < veritates_number; i++)
-        visited[i] = 0;
-
-    int result = 0;
-    for (int i = 0; i < veritates_number; i++)
-    {
-        if (visited[i] == 0)
-        {
-            if (dfs_recursive(i, veritates_number, visited, matrix))
-            {
-                result = 1;
-                break;
-            }
-        }
-    }
-
-    free(visited);
-    return result;
 }
